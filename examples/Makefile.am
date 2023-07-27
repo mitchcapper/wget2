@@ -14,7 +14,7 @@ noinst_PROGRAMS = \
 
 
 AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS) -DMALLOC_RETURNS_NONNULL
-AM_CPPFLAGS = -I$(top_srcdir)/include/wget \
+AM_CPPFLAGS = -I$(top_srcdir)/include/wget -I$(top_srcdir)/lib -FI$(top_srcdir)/config.h \
  -DWGETVER_FILE=\"$(top_builddir)/include/wget/wgetver.h\" -DMALLOC_RETURNS_NONNULL
 AM_LDFLAGS = -no-install
 LDADD = ../libwget/libwget.la\
@@ -22,4 +22,4 @@ LDADD = ../libwget/libwget.la\
  $(LIBMULTITHREAD) $(LIBSOCKET) $(LIBTHREAD) $(LIB_CLOCK_GETTIME) $(LIB_CRYPTO) $(LIB_GETLOGIN) \
  $(LIB_HARD_LOCALE) $(LIB_MBRTOWC) $(LIB_NANOSLEEP) $(LIB_POLL) $(LIB_POSIX_SPAWN) $(LIB_PTHREAD_SIGMASK) \
  $(LIB_SELECT) $(LIB_SETLOCALE) $(LIB_SETLOCALE_NULL) $(LTLIBICONV) $(LTLIBINTL) $(SERVENT_LIB) @INTL_MACOSX_LIBS@ \
- $(LIBS)
+ $(LIBS) ../lib/libgnu.la
