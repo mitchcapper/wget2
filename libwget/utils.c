@@ -34,6 +34,7 @@
 #include <time.h>
 #include <glob.h>
 
+#include <stdbool.h>
 #include "c-ctype.h"
 #include "c-strcase.h"
 #include "filename.h"
@@ -63,7 +64,7 @@
  * They may be useful to other developers that is why they are exported.
  */
 
-static const char * _wget_ssl_default_path(BOOL bundleNotDir)
+static const char * ssl_default_path(bool bundleNotDir)
 {
 #ifndef _WIN32
 	return bundleNotDir ? NULL : "/etc/ssl/certs";
@@ -73,7 +74,7 @@ static const char * _wget_ssl_default_path(BOOL bundleNotDir)
 	char* buffer = bundleNotDir ? CERTBUNDLE_PATH : CERTDIR_PATH;
 	if (buffer[0]) //we could end up with a partial or incorrect path with multiple threads
 		return buffer;
-	strcpy_s(buffer, MAX_PATH, "/etc/ssl/certs");
+	wget_strscpy(buffer, "/etc/ssl/certs", MAX_PATH);
 
 	if (access(buffer, F_OK)) {
 		const char* progData = getenv("ProgramData");
@@ -85,13 +86,14 @@ static const char * _wget_ssl_default_path(BOOL bundleNotDir)
 	return buffer;
 #endif
 }
-const char* wget_ssl_default_cert_dir() {
-	return _wget_ssl_default_path(FALSE);
+const char* wget_ssl_default_cert_dir()
+{
+	return ssl_default_path(true);
 }
 
 const char* wget_ssl_default_ca_bundle_path()
 {
-	return _wget_ssl_default_path(TRUE);
+	return ssl_default_path(true);
 
 }
 /**
