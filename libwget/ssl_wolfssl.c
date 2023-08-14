@@ -30,12 +30,6 @@
  * https://test-sspev.verisign.com:2443/test-SSPEV-revoked-verisign.html
  *
  */
-#ifndef DEBUG_WOLFSSL
-#include <wolfssl/options.h>
-#undef DEBUG_WOLFSSL
-#else
-#include <wolfssl/options.h>
-#endif
 
 #include <config.h>
 
@@ -51,7 +45,12 @@
 #  define SOCKET_TO_FD(x) (x)
 #endif
 
+#ifndef DEBUG_WOLFSSL
 #include <wolfssl/options.h>
+#undef DEBUG_WOLFSSL
+#else
+#include <wolfssl/options.h>
+#endif
 #include <wolfssl/ssl.h>
 
 #include <wget.h>
