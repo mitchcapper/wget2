@@ -1223,9 +1223,7 @@ static int print_plugin_help(WGET_GCC_UNUSED option_t opt,
 }
 
 // default values for config options (if not 0 or NULL)
-/*
-	WARNING: any constant strings used here must be wget_strdup in init as we may call xfree on them later
-*/
+// WARNING: any constant strings used here must be wget_strdup in init as we may call xfree on them later
 struct config config = {
 	.auth_no_challenge = false,
 	.connect_timeout = -1,
