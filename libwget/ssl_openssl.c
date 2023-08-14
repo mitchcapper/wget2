@@ -126,13 +126,14 @@ static int ssl_userdata_idx;
  */
 static void tls_exit(void)
 {
+	if (mutex){
 	CRYPTO_free_ex_index(CRYPTO_EX_INDEX_APP, ssl_userdata_idx);
-	if (mutex)
 		wget_thread_mutex_destroy(&mutex);
+	}
 }
 INITIALIZER(tls_init)
 {
-	if (!mutex)
+	if (!mutex){
 		wget_thread_mutex_init(&mutex);
 
 	ssl_userdata_idx = CRYPTO_get_ex_new_index(
@@ -143,6 +144,7 @@ INITIALIZER(tls_init)
 		NULL      /* free_func */
 	);
 	atexit(tls_exit);
+	}
 }
 
 
