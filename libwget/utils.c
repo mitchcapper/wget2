@@ -88,7 +88,7 @@ static const char * ssl_default_path(bool bundleNotDir)
 }
 const char* wget_ssl_default_cert_dir()
 {
-	return ssl_default_path(true);
+	return ssl_default_path(false);
 }
 
 const char* wget_ssl_default_ca_bundle_path()
